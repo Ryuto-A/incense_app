@@ -74,3 +74,22 @@ Instagramのように、ユーザーが気になるタグをフォローし、�
 一般的なCRUD以外の実装予定の機能についてそれぞれどのようなイメージ(使用するAPIや)で実装する予定なのか現状考えているもので良いので教えて下さい
 
 ここまで学習したことを活かし、全ての機能をRuby on Railsを用いて実装する予定です。
+
+以下、現段階で考えている各機能の使用技術です。
+● MVPリリース時
+・ユーザー登録機能：devise
+・ログイン機能：devise
+・ログアウト機能：devise
+・投稿のCRUD機能：resources
+・画像アップロード機能：active_storage
+・コメント機能：has_many :comments
+・検索機能：ransack
+
+● 本リリース時
+・お気に入り機能（ブックマーク）：ajax
+・通知機能（LINE または メール）：line-bot-api または action_mailer
+・パスワードリセット：devise
+・お問い合わせ：mail_form
+・利用規約：high_voltage
+・SNSログイン：omuiauth
+・投稿時の該当商品の製品画面（外部サイト）へのリンク：nokogiri
