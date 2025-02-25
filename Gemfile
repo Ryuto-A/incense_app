@@ -65,3 +65,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# CSSフレームワークにBootstrapを指定
+gem "bootstrap", "~> 5.3.0"
+gem "sassc-rails"
