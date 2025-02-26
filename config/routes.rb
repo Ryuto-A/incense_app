@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   # トップページを home#index に設定
   root "home#index"
+
+  resources :incense_reviews
+
 end

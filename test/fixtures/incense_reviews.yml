@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  title: MyString
+  scent_category: 1
+  smoke_intensity: 1
+  content: MyText
+  product_url: MyString
+  product_name: MyString
+  product_image: MyString
+
+two:
+  user: two
+  title: MyString
+  scent_category: 1
+  smoke_intensity: 1
+  content: MyText
+  product_url: MyString
+  product_name: MyString
+  product_image: MyString
