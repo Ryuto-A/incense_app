@@ -69,3 +69,5 @@ end
 # CSSフレームワークにBootstrapを指定
 gem "bootstrap", "~> 5.3.0"
 gem "sassc-rails"
+
+gem 'devise'
