@@ -1,0 +1,11 @@
+<h1>レビュー一覧</h1>
+<%= link_to "新しいレビューを投稿", new_incense_review_path %>
+
+<ul>
+  <% @incense_reviews.each do |review| %>
+    <li>
+      <%= link_to review.title, incense_review_path(review) %>
+      <p><%= review.content.truncate(100) %></p>
+    </li>
+  <% end %>
+</ul>

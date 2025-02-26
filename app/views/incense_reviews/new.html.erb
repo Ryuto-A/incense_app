@@ -1,0 +1,29 @@
+<h1>新しいレビューを投稿</h1>
+<%= form_with(model: @incense_review, local: true) do |f| %>
+  <div>
+    <%= f.label :title, "タイトル" %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :scent_category, "香りのカテゴリー" %>
+    <%= f.select :scent_category, IncenseReview.scent_categories.keys.map { |key| [key.humanize, key] } %>
+  </div>
+
+  <div>
+    <%= f.label :smoke_intensity, "煙の強さ (1-5)" %>
+    <%= f.number_field :smoke_intensity, in: 1..5 %>
+  </div>
+
+  <div>
+    <%= f.label :content, "レビュー内容" %>
+    <%= f.text_area :content %>
+  </div>
+
+  <div>
+    <%= f.label :product_url, "製品ページURL" %>
+    <%= f.text_field :product_url %>
+  </div>
+
+  <%= f.submit "投稿" %>
+<% end %>

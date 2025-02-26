@@ -1,0 +1,15 @@
+<h1><%= @incense_review.title %></h1>
+<p>カテゴリー: <%= @incense_review.scent_category.humanize %></p>
+<p>煙の強さ: <%= @incense_review.smoke_intensity %></p>
+<p><%= @incense_review.content %></p>
+
+<% if @incense_review.product_url.present? %>
+  <p><%= link_to "製品ページを見る", @incense_review.product_url, target: "_blank" %></p>
+<% end %>
+
+<% if current_user == @incense_review.user %>
+  <%= link_to "編集", edit_incense_review_path(@incense_review) %>
+  <%= link_to "削除", @incense_review, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+<% end %>
+
+<%= link_to "一覧に戻る", incense_reviews_path %>
