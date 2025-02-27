@@ -1,15 +1,21 @@
-<h1><%= @incense_review.title %></h1>
-<p>カテゴリー: <%= @incense_review.scent_category.humanize %></p>
-<p>煙の強さ: <%= @incense_review.smoke_intensity %></p>
-<p><%= @incense_review.content %></p>
+<h2><%= @incense_review.title %></h2>
+<p><strong>香りのカテゴリ:</strong> <%= @incense_review.scent_category.humanize %></p>
+<p><strong>煙の強さ:</strong> <%= @incense_review.smoke_intensity %></p>
+<p><strong>レビュー内容:</strong> <%= @incense_review.content %></p>
 
 <% if @incense_review.product_url.present? %>
-  <p><%= link_to "製品ページを見る", @incense_review.product_url, target: "_blank" %></p>
+  <p><strong>製品ページ:</strong> <%= link_to @incense_review.product_url, @incense_review.product_url, target: "_blank" %></p>
 <% end %>
+
+<% if @incense_review.product_image.present? %>
+  <p><img src="<%= @incense_review.product_image %>" alt="Product Image" class="img-fluid"></p>
+<% end %>
+
 
 <% if current_user == @incense_review.user %>
-  <%= link_to "編集", edit_incense_review_path(@incense_review) %>
-  <%= link_to "削除", @incense_review, method: :delete, data: { confirm: "本当に削除しますか？" } %>
+  <%= link_to "編集", edit_incense_review_path(@incense_review), class: "btn btn-light" %>
+
+  <%= button_to "削除", incense_review_path(@incense_review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-light" %>
 <% end %>
 
-<%= link_to "一覧に戻る", incense_reviews_path %>
+<%= link_to "一覧に戻る", incense_reviews_path, class: "btn btn-light" %>

@@ -1,0 +1,32 @@
+<h2>レビューを編集</h2>
+
+<%= form_with model: @incense_review, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, "タイトル" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :scent_category, "香りのカテゴリ" %>
+    <%= form.select :scent_category, IncenseReview.scent_categories.keys.map { |key| [key.humanize, key] }, {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :smoke_intensity, "煙の強さ (1〜5)" %>
+    <%= form.number_field :smoke_intensity, in: 1..5, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :content, "レビュー内容" %>
+    <%= form.text_area :content, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :product_url, "製品ページURL" %>
+    <%= form.text_field :product_url, class: "form-control" %>
+  </div>
+
+  <%= form.submit "更新する", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to "キャンセル", @incense_review, class: "btn btn-secondary" %>
