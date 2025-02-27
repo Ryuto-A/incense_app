@@ -1,11 +1,19 @@
-<h1>レビュー一覧</h1>
-<%= link_to "新しいレビューを投稿", new_incense_review_path %>
+<h2>レビュー一覧</h2>
 
-<ul>
-  <% @incense_reviews.each do |review| %>
-    <li>
-      <%= link_to review.title, incense_review_path(review) %>
-      <p><%= review.content.truncate(100) %></p>
-    </li>
-  <% end %>
-</ul>
+<% if user_signed_in? %>
+  <div class="mb-3">
+    <%= link_to "レビューを投稿する", new_incense_review_path, class: "btn btn-outline-primary" %>
+  </div>
+<% end %>
+
+<% @incense_reviews.each do |review| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to review.title, review %></h5>
+      <p class="card-text"><strong>香りのカテゴリ:</strong> <%= review.scent_category.humanize %></p>
+      <p class="card-text"><strong>煙の強さ:</strong> <%= review.smoke_intensity %></p>
+      <p class="card-text"><%= truncate(review.content, length: 100) %></p>
+      <%= link_to "続きを読む", review, class: "btn btn-outline-primary" %>
+    </div>
+  </div>
+<% end %>
