@@ -61,3 +61,4 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_105256) do
   add_foreign_key "comments", "users"
   add_foreign_key "incense_reviews", "users"
 end
+

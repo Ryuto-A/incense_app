@@ -10,3 +10,4 @@ class User < ApplicationRecord
     id == object&.user_id
   end
 end
+

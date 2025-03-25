@@ -5,3 +5,4 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   #   assert true
   # end
 end
+
