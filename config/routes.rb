@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   # トップページを home#index に設定
   root "home#index"
 
-  resources :incense_reviews
-
+  resources :incense_reviews do
+    resources :comments, only: [:create, :destroy]
+  end  
 end
+

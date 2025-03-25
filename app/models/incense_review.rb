@@ -1,5 +1,6 @@
 class IncenseReview < ApplicationRecord
   belongs_to :user
+  has_many :comments, dependent: :destroy
 
   enum scent_category: { sweet: 0, woody: 1, floral: 2 }
 
@@ -8,3 +9,4 @@ class IncenseReview < ApplicationRecord
   validates :smoke_intensity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
   validates :content, presence: true
 end
+

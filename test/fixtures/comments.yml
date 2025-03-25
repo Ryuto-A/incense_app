@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  incense_review: one
+  content: MyText
+
+two:
+  user: two
+  incense_review: two
+  content: MyText
+

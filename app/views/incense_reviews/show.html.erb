@@ -1,21 +1,45 @@
 <h2><%= @incense_review.title %></h2>
-<p><strong>香りのカテゴリ:</strong> <%= @incense_review.scent_category.humanize %></p>
-<p><strong>煙の強さ:</strong> <%= @incense_review.smoke_intensity %></p>
-<p><strong>レビュー内容:</strong> <%= @incense_review.content %></p>
+
+<dl class="row">
+  <dt class="col-sm-3">香りのカテゴリ</dt>
+  <dd class="col-sm-9"><%= @incense_review.scent_category.humanize %></dd>
+
+  <dt class="col-sm-3">煙の強さ</dt>
+  <dd class="col-sm-9"><%= @incense_review.smoke_intensity %></dd>
+
+  <dt class="col-sm-3">レビュー内容</dt>
+  <dd class="col-sm-9"><%= simple_format(@incense_review.content) %></dd>
+</dl>
 
 <% if @incense_review.product_url.present? %>
-  <p><strong>製品ページ:</strong> <%= link_to @incense_review.product_url, @incense_review.product_url, target: "_blank" %></p>
+  <p><strong>製品ページ:</strong> <%= link_to "こちら", @incense_review.product_url, target: "_blank" %></p>
 <% end %>
 
 <% if @incense_review.product_image.present? %>
-  <p><img src="<%= @incense_review.product_image %>" alt="Product Image" class="img-fluid"></p>
+  <div class="text-center">
+    <img src="<%= @incense_review.product_image %>" alt="Product Image" class="img-fluid">
+  </div>
 <% end %>
 
-
 <% if current_user == @incense_review.user %>
-  <%= link_to "編集", edit_incense_review_path(@incense_review), class: "btn btn-light" %>
-
-  <%= button_to "削除", incense_review_path(@incense_review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-light" %>
+  <div class="my-3">
+    <%= link_to "編集", edit_incense_review_path(@incense_review), class: "btn btn-primary" %>
+    <%= button_to "削除", incense_review_path(@incense_review), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
+  </div>
 <% end %>
 
 <%= link_to "一覧に戻る", incense_reviews_path, class: "btn btn-light" %>
+
+<hr>
+
+<%= render 'comments/form' %>
+
+<div class="row">
+  <div class="col-lg-8 offset-lg-2">
+    <table class="table">
+      <tbody id="table-comment">
+      <%= render partial: "comments/comment", collection: @incense_review.comments, as: :comment %>
+      </tbody>
+    </table>
+  </div>
+</div>
