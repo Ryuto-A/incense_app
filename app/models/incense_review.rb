@@ -1,5 +1,6 @@
 class IncenseReview < ApplicationRecord
   belongs_to :user
+  has_many :comments, dependent: :destroy
 
   enum scent_category: { sweet: 0, woody: 1, floral: 2 }
 
