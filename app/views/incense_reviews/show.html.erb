@@ -38,7 +38,11 @@
   <div class="col-lg-8 offset-lg-2">
     <table class="table">
       <tbody id="table-comment">
-      <%= render partial: "comments/comment", collection: @incense_review.comments, as: :comment %>
+        <% if @comments.present? %>
+          <%= render @comments %>
+        <% else %>
+          <tr><td>コメントはまだありません。</td></tr>
+        <% end %>
       </tbody>
     </table>
   </div>

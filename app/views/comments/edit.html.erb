@@ -1,0 +1,13 @@
+<h3>コメントを編集</h3>
+
+<%= render 'shared/error_messages', object: @comment %>
+
+<%= form_with(model: [@comment.incense_review, @comment]) do |form| %>
+  <div class="mb-3">
+    <%= form.label :content, "内容" %>
+    <%= form.text_area :content, class: "form-control" %>
+  </div>
+
+  <%= form.submit "更新", class: "btn btn-primary" %>
+  <%= link_to "キャンセル", incense_review_path(@comment.incense_review), class: "btn btn-secondary" %>
+<% end %>

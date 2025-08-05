@@ -7,7 +7,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def own?(object)
-    id == object&.user_id
+    self.id == object.user_id
   end
 end
-

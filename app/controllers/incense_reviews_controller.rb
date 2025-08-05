@@ -7,6 +7,7 @@ class IncenseReviewsController < ApplicationController
   end
 
   def show
+    @comments = @incense_review.comments.includes(:user)
   end
 
   def new

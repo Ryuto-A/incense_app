@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :incense_reviews do
-    resources :comments, only: [:create, :destroy]
-  end  
+    resources :comments, only: [:create, :destroy, :edit, :update]
+  end
 end
-
