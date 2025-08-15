@@ -20,6 +20,14 @@
     <%= f.text_area :content %>
   </div>
 
+  <div class="mb-3">
+    <%= f.label :photo, "商品画像（任意）", class: "form-label" %>
+    <%= f.file_field :photo,
+          accept: "image/png,image/jpeg,image/webp",
+          class: "form-control" %>
+    <div class="form-text">画像は10MBまでで、JPG/PNG/WEBP に対応しています。</div>
+  </div>
+
   <div>
     <%= f.label :product_url, "製品ページURL" %>
     <%= f.text_field :product_url %>
