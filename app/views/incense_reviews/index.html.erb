@@ -10,13 +10,21 @@
   <div class="card mb-3">
     <%# 画像（添付が優先。なければ既存の外部URL） %>
     <% if review.photo.attached? %>
-      <%= image_tag review.photo.variant(resize_to_limit: [400, 400]).processed,
-            class: "card-img-top",
-            alt: "#{review.title} の画像" %>
+      <%= image_tag review.photo.variant(
+            format: :webp,
+            resize_to_limit: [400, 400],
+            saver: { quality: 70, strip: true } # vips用
+          ).processed,
+          class: "card-img-top",
+          alt: "#{review.title} の画像",
+          loading: "lazy",
+          decoding: "async" %>
     <% elsif review.product_image.present? %>
       <%= image_tag review.product_image,
             class: "card-img-top",
-            alt: "#{review.title} の画像" %>
+            alt: "#{review.title} の画像",
+            loading: "lazy",
+            decoding: "async" %>
     <% end %>
 
     <div class="card-body">
