@@ -81,3 +81,6 @@ gem "ruby-vips", "~> 2.2"
 
 # バリデーションをシンプルに書けるように設定
 gem "active_storage_validations", "~> 1.2"
+
+#  Active Storage の S3 サービスを利用
+gem "aws-sdk-s3", "~> 1.149"
