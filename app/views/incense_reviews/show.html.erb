@@ -21,6 +21,14 @@
   </div>
 <% end %>
 
+<% if @incense_review.photo.attached? %>
+  <%= image_tag @incense_review.photo.variant(resize_to_limit: [1200, 1200]).processed,
+      class: "img-fluid rounded mb-3" %>
+<% elsif @incense_review.product_image.present? %>
+  <%= image_tag @incense_review.product_image, class: "img-fluid rounded mb-3" %>
+<% end %>
+
+
 <% if current_user == @incense_review.user %>
   <div class="my-3">
     <%= link_to "編集", edit_incense_review_path(@incense_review), class: "btn btn-primary" %>

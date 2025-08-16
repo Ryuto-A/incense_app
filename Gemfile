@@ -71,3 +71,16 @@ gem "bootstrap", "~> 5.3.0"
 gem "sassc-rails"
 
 gem 'devise'
+
+# 画像変換用（Active Storageのvariantで必須）.
+gem "image_processing", "~> 1.12"
+gem "ruby-vips", "~> 2.2"
+
+# ※ MiniMagickに切り替えないため、mini_magickは削除
+# gem "mini_magick"
+
+# バリデーションをシンプルに書けるように設定
+gem "active_storage_validations", "~> 1.2"
+
+#  Active Storage の S3 サービスを利用
+gem "aws-sdk-s3", "~> 1.149"

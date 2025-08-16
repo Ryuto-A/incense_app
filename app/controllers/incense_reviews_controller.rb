@@ -46,6 +46,10 @@ class IncenseReviewsController < ApplicationController
   end
 
   def incense_review_params
-    params.require(:incense_review).permit(:title, :scent_category, :smoke_intensity, :content, :product_url, :product_name, :product_image)
+    params.require(:incense_review).permit(
+      :title, :scent_category, :smoke_intensity, :content,
+      :product_url, :product_name, :product_image,
+      :photo
+    )
   end
 end

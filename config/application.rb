@@ -23,5 +23,8 @@ module IncenseApp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Active Storageを全環境でVipsに設定
+    config.active_storage.variant_processor = :vips
   end
 end

@@ -8,6 +8,17 @@
 
 <% @incense_reviews.each do |review| %>
   <div class="card mb-3">
+    <%# 画像（添付が優先。なければ既存の外部URL） %>
+    <% if review.photo.attached? %>
+      <%= image_tag review.photo.variant(resize_to_limit: [400, 400]).processed,
+            class: "card-img-top",
+            alt: "#{review.title} の画像" %>
+    <% elsif review.product_image.present? %>
+      <%= image_tag review.product_image,
+            class: "card-img-top",
+            alt: "#{review.title} の画像" %>
+    <% end %>
+
     <div class="card-body">
       <h5 class="card-title"><%= link_to review.title, review %></h5>
       <p class="card-text"><strong>香りのカテゴリ:</strong> <%= review.scent_category.humanize %></p>
