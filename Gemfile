@@ -72,7 +72,7 @@ gem "sassc-rails"
 
 gem 'devise'
 
-# 画像変換用（Active Storageのvariantで必須）.
+# 画像変換用（Active Storageのvariantで必須）.vipsを用いてレスポンシブ対応
 gem "image_processing", "~> 1.12"
 gem "ruby-vips", "~> 2.2"
 
