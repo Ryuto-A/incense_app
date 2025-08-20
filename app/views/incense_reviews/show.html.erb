@@ -15,24 +15,18 @@
   <p><strong>製品ページ:</strong> <%= link_to "こちら", @incense_review.product_url, target: "_blank", rel: "noopener" %></p>
 <% end %>
 
-<%# 画像表示：添付があれば WebP 変換（Vips）を優先, なければ product_image を表示 %>
-<% if @incense_review.photo.attached? %>
-  <%= image_tag @incense_review.photo.variant(
-        format: :webp,
-        resize_to_limit: [960, 960],
-        saver: { quality: 80, strip: true }
-      ).processed,
-      class: "img-fluid rounded mb-3",
-      alt: "#{@incense_review.title} の画像",
-      loading: "lazy",
-      decoding: "async" %>
-<% elsif @incense_review.product_image.present? %>
-  <%= image_tag @incense_review.product_image,
-      class: "img-fluid rounded mb-3",
-      alt: "#{@incense_review.title} の画像",
-      loading: "lazy",
-      decoding: "async" %>
-<% end %>
+<%# 画像表示: CLS対策としてアスペクト比を先に確保。中の画像は responsive_image でレスポンシブ配信 %>
+<div class="ratio mb-3" style="--bs-aspect-ratio: 100%;">
+  <%= responsive_image(
+        @incense_review,
+        alt: "#{@incense_review.title} の画像",
+        attachment_name: :photo,                       # Active Storage 添付名
+        fallback_url: @incense_review.product_image,   # 添付が無い場合のフォールバックURL
+        widths: [640, 960, 1280, 1600],                # 詳細ページ向けの派生サイズ
+        sizes: "(min-width: 992px) 960px, 100vw",      # PCでは最大960px、それ未満は画面幅
+        class_name: "w-100 h-100 object-fit-contain rounded"
+      ) %>
+</div>
 
 <% if current_user == @incense_review.user %>
   <div class="my-3">

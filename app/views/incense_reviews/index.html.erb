@@ -1,5 +1,7 @@
 <h2>レビュー一覧</h2>
 
+<h2>レビュー一覧</h2>
+
 <% if user_signed_in? %>
   <div class="mb-3">
     <%= link_to "レビューを投稿する", new_incense_review_path, class: "btn btn-outline-primary" %>
@@ -8,24 +10,19 @@
 
 <% @incense_reviews.each do |review| %>
   <div class="card mb-3">
-    <%# 画像（添付が優先。なければ既存の外部URL） %>
-    <% if review.photo.attached? %>
-      <%= image_tag review.photo.variant(
-            format: :webp,
-            resize_to_limit: [400, 400],
-            saver: { quality: 70, strip: true } # vips用
-          ).processed,
-          class: "card-img-top",
-          alt: "#{review.title} の画像",
-          loading: "lazy",
-          decoding: "async" %>
-    <% elsif review.product_image.present? %>
-      <%= image_tag review.product_image,
-            class: "card-img-top",
+
+    <%# 画像エリア: CLS対策としてアスペクト比を先に確保（4:3）。中の画像は responsive_image ヘルパでレスポンシブ配信 %>
+    <div class="ratio ratio-4x3 card-img-top overflow-hidden">
+      <%= responsive_image(
+            review,
             alt: "#{review.title} の画像",
-            loading: "lazy",
-            decoding: "async" %>
-    <% end %>
+            attachment_name: :photo,                    # Active Storage 添付名
+            fallback_url: review.product_image,         # 画像が無い場合の外部URLフォールバック
+            widths: [320, 640, 960, 1280],              # 生成する派生サイズ
+            sizes: "100vw",                             # 現状は1カラム想定。後で複数カラム化するなら調整
+            class_name: "w-100 h-100 object-fit-cover"  # 枠いっぱいに表示
+          ) %>
+    </div>
 
     <div class="card-body">
       <h5 class="card-title"><%= link_to review.title, review %></h5>
