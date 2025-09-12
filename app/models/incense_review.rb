@@ -1,8 +1,6 @@
 class IncenseReview < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
-  has_many :review_tags, class_name: "ReviewTag", foreign_key: :review_id, dependent: :destroy
-  has_many :tags, through: :review_tags
 
   enum scent_category: { sweet: 0, woody: 1, floral: 2 }
 
