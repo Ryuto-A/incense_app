@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_15_083932) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_10_112938) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_15_083932) do
     t.index ["user_id"], name: "index_incense_reviews_on_user_id"
   end
 
+  create_table "review_tags", force: :cascade do |t|
+    t.bigint "review_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id", "tag_id"], name: "index_review_tags_on_review_id_and_tag_id", unique: true
+    t.index ["review_id"], name: "index_review_tags_on_review_id"
+    t.index ["tag_id"], name: "index_review_tags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "test_models", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -90,4 +107,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_15_083932) do
   add_foreign_key "comments", "incense_reviews"
   add_foreign_key "comments", "users"
   add_foreign_key "incense_reviews", "users"
+  add_foreign_key "review_tags", "incense_reviews", column: "review_id"
+  add_foreign_key "review_tags", "tags"
 end
