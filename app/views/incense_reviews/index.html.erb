@@ -1,35 +1,111 @@
-<h2>レビュー一覧</h2>
+<%= form_with url: incense_reviews_path, method: :get, local: false,
+              data: { controller: "autosubmit", turbo_frame: "reviews" },
+              class: "mb-3" do %>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-4">
+      <%= label_tag :q, "キーワード" %>
+      <%= text_field_tag :q, params[:q], class: "form-control",
+          placeholder: "タイトル / 本文 / 商品名",
+          data: { action: "input->autosubmit#queue" } %>
+    </div>
 
-<h2>レビュー一覧</h2>
+    <div class="col-md-3">
+      <%= label_tag :categories, "香りカテゴリ（複数可）" %>
+      <%= select_tag "categories[]",
+          options_for_select(IncenseReview.scent_categories.keys.map { |k| [k.humanize, k] }, params[:categories]),
+          multiple: true, id: "categories", class: "form-select",
+          data: { action: "change->autosubmit#submit" } %>
+      <div class="form-text">⌘/Ctrl で複数選択</div>
+    </div>
 
-<% if user_signed_in? %>
-  <div class="mb-3">
-    <%= link_to "レビューを投稿する", new_incense_review_path, class: "btn btn-outline-primary" %>
+    <div class="col-md-3">
+      <%= label_tag :smoke_min, "煙の強さ" %>
+      <div class="d-flex gap-2">
+        <%= number_field_tag :smoke_min, params[:smoke_min] || 1, in: 1..5, class: "form-control",
+              data: { action: "change->autosubmit#submit" } %>
+        <span class="align-self-center">〜</span>
+        <%= number_field_tag :smoke_max, params[:smoke_max] || 5, in: 1..5, class: "form-control",
+              data: { action: "change->autosubmit#submit" } %>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <%= label_tag :tag_ids, "タグ（複数可）" %>
+      <%= select_tag "tag_ids[]",
+          options_from_collection_for_select(@all_tags, :id, :name, params[:tag_ids]),
+          multiple: true, id: "tag_ids", class: "form-select",
+          data: { action: "change->autosubmit#submit" } %>
+    </div>
+
+    <div class="col-md-2">
+      <%= label_tag :tag_match, "タグの一致条件" %>
+      <div class="form-check">
+        <%= radio_button_tag :tag_match, "any", params[:tag_match] != "all",
+              class: "form-check-input", data: { action: "change->autosubmit#submit" } %>
+        <%= label_tag :tag_match_any, "いずれか一致" %>
+      </div>
+      <div class="form-check">
+        <%= radio_button_tag :tag_match, "all", params[:tag_match] == "all",
+              class: "form-check-input", data: { action: "change->autosubmit#submit" } %>
+        <%= label_tag :tag_match_all, "すべて一致" %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-check mt-4">
+        <%= check_box_tag :has_photo, "1", params[:has_photo].present?,
+              class: "form-check-input", data: { action: "change->autosubmit#submit" } %>
+        <%= label_tag :has_photo, "画像あり" %>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <%= submit_tag "検索", class: "btn btn-primary w-100 mt-4" %>
+    </div>
   </div>
 <% end %>
 
-<% @incense_reviews.each do |review| %>
-  <div class="card mb-3">
-
-    <%# 画像エリア: CLS対策としてアスペクト比を先に確保（4:3）。中の画像は responsive_image ヘルパでレスポンシブ配信 %>
-    <div class="ratio ratio-4x3 card-img-top overflow-hidden">
-      <%= responsive_image(
-            review,
-            alt: "#{review.title} の画像",
-            attachment_name: :photo,                    # Active Storage 添付名
-            fallback_url: review.product_image,         # 画像が無い場合の外部URLフォールバック
-            widths: [320, 640, 960, 1280],              # 生成する派生サイズ
-            sizes: "100vw",                             # 現状は1カラム想定。後で複数カラム化するなら調整
-            class_name: "w-100 h-100 object-fit-cover"  # 枠いっぱいに表示
-          ) %>
-    </div>
-
-    <div class="card-body">
-      <h5 class="card-title"><%= link_to review.title, review %></h5>
-      <p class="card-text"><strong>香りのカテゴリ:</strong> <%= review.scent_category.humanize %></p>
-      <p class="card-text"><strong>煙の強さ:</strong> <%= review.smoke_intensity %></p>
-      <p class="card-text"><%= truncate(review.content, length: 100) %></p>
-      <%= link_to "続きを読む", review, class: "btn btn-outline-primary" %>
-    </div>
+<turbo-frame id="reviews">
+  <div aria-live="polite">
+    <p class="text-muted small mb-2"><%= @incense_reviews.size %> 件ヒット</p>
+    <% if @incense_reviews.empty? %>
+      <div class="alert alert-light border">
+        条件に一致するレビューが見つかりませんでした。
+      </div>
+    <% end %>
   </div>
-<% end %>
+
+  <%= link_to "条件をリセット", incense_reviews_path, class: "btn btn-outline-secondary btn-sm mb-3" %>
+
+  <h2>レビュー一覧</h2>
+
+  <% if user_signed_in? %>
+    <div class="mb-3">
+      <%= link_to "レビューを投稿する", new_incense_review_path, class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+
+  <% @incense_reviews.each do |review| %>
+    <div class="card mb-3">
+      <div class="ratio ratio-4x3 card-img-top overflow-hidden">
+        <%= responsive_image(
+              review,
+              alt: "#{review.title} の画像",
+              attachment_name: :photo,
+              fallback_url: review.product_image,
+              widths: [320, 640, 960, 1280],
+              sizes: "100vw",
+              class_name: "w-100 h-100 object-fit-cover"
+            ) %>
+      </div>
+
+      <div class="card-body">
+        <h5 class="card-title"><%= link_to review.title, review %></h5>
+        <p class="card-text"><strong>香りのカテゴリ:</strong> <%= review.scent_category.humanize %></p>
+        <p class="card-text"><strong>煙の強さ:</strong> <%= review.smoke_intensity %></p>
+        <p class="card-text"><%= truncate(review.content, length: 100) %></p>
+        <%= link_to "続きを読む", review, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  <% end %>
+</turbo-frame>

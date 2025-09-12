@@ -3,7 +3,33 @@ class IncenseReviewsController < ApplicationController
   before_action :set_incense_review, only: [:show, :edit, :update, :destroy]
 
   def index
-    @incense_reviews = IncenseReview.all.order(created_at: :desc)
+    @all_tags = Tag.order(:name)
+  
+    base = IncenseReview
+             .includes(:user, :tags, photo_attachment: :blob)
+             .order(created_at: :desc)
+  
+    q          = params[:q]
+    categories = Array(params[:categories]).reject(&:blank?) & IncenseReview.scent_categories.keys
+    smoke_min  = params[:smoke_min]
+    smoke_max  = params[:smoke_max]
+    tag_ids    = Array(params[:tag_ids]).reject(&:blank?).map(&:to_i) # map!からmapにして副作用が無い
+
+    tag_match  = params[:tag_match] # "any" | "all"
+    has_photo  = params[:has_photo].present?
+  
+    @incense_reviews = base
+    @incense_reviews = @incense_reviews.with_keyword(q)
+                                       .with_categories(categories)
+                                       .with_smoke_between(smoke_min, smoke_max)
+  
+    if tag_ids.present?
+      @incense_reviews = (tag_match == "all") ?
+        @incense_reviews.tagged_with_all(tag_ids) :
+        @incense_reviews.tagged_with_any(tag_ids)
+    end
+  
+    @incense_reviews = @incense_reviews.with_photo if has_photo
   end
 
   def show
