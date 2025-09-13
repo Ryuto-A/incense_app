@@ -42,8 +42,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libvips
+        
+      # RSpec の前にRubocopを実行して、失敗を早期に探知
+      - name: RuboCop
+        run: bundle exec rubocop
 
-      # test DBの準備（作成＆マイグレーション適用）
+    # test DBの準備（作成＆マイグレーション適用）
       - run: bin/rails db:prepare
 
       # RSpec 実行
