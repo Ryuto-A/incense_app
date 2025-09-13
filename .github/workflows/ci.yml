@@ -1,0 +1,52 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: incense_app_test
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:password@localhost:5432/incense_app_test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # GitHubのRAILS_MASTER_KEYを参照する
+      CI: "true" # ← spec/support/capybara.rb のCI切り替え用
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true   # Gemをキャッシュ
+
+      # ヘッドレスChromeを確実に用意（Selenium Manager任せにしないで安定化）
+      - uses: browser-actions/setup-chrome@v1
+
+      # test DBの準備（作成＆マイグレーション適用）
+      - run: bin/rails db:prepare
+
+      # RSpec 実行
+      - run: bundle exec rspec
+
+      # 失敗時のCapybaraスクショをアーティファクトで保存
+      - name: Upload Capybara screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capybara-screenshots
+          path: tmp/capybara/*.png

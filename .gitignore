@@ -33,3 +33,16 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/config/credentials/development.key
+
+/config/credentials/test.key
+
+# credentials用追記部分
+# macOS Finder
+.DS_Store
+**/.DS_Store
+
+# Rails credentials keys (all envs: production.key など含む)
+# 既に development/test は個別指定済みだが追加
+/config/credentials/*.key
