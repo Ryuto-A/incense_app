@@ -37,6 +37,12 @@ jobs:
       # ヘッドレスChromeを確実に用意（Selenium Manager任せにしないで安定化）
       - uses: browser-actions/setup-chrome@v1
 
+      # ▼ 追加：ruby-vips が必要とする OS パッケージ
+      - name: Install libvips
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libvips
+
       # test DBの準備（作成＆マイグレーション適用）
       - run: bin/rails db:prepare
 
