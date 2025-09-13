@@ -1,23 +1,26 @@
-inherit_from: .rubocop_todo.yml
+# .rubocop.yml
+inherit_from:
+  - .rubocop_todo.yml
 
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
 
 AllCops:
-  TargetRubyVersion: 3.2
   NewCops: enable
+  TargetRubyVersion: 3.2
   Exclude:
     - 'bin/**/*'
     - 'db/schema.rb'
-    - 'db/migrate/**/*'  # 変更が多くスタイル拘束の必要性が低い
     - 'node_modules/**/*'
     - 'vendor/**/*'
-    - 'tmp/**/*'
 
 Layout/LineLength:
   Max: 120
+  # Exclude:
+  #  - 'config/initializers/devise.rb' # コメント長の警告を回避する場合
+
 
 Metrics/BlockLength:
   Exclude:

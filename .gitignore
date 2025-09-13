@@ -46,3 +46,6 @@
 # Rails credentials keys (all envs: production.key など含む)
 # 既に development/test は個別指定済みだが追加
 /config/credentials/*.key
+
+# VS Codeは共有しなくて良い
+.vscode/
