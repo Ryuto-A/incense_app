@@ -31,7 +31,7 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2"
+          ruby-version: .ruby-version # Rubyのバージョンファイルを直接指定
           bundler-cache: true   # Gemをキャッシュ
 
       # ヘッドレスChromeを確実に用意（Selenium Manager任せにしないで安定化）
