@@ -1,8 +1,12 @@
 require "rails_helper"
 
 RSpec.describe IncenseReview, type: :model do
-  let!(:r1) { create(:incense_review, title: "Sweet wood", product_name: "A", scent_category: :sweet, smoke_intensity: 2) }
-  let!(:r2) { create(:incense_review, title: "Woody rose",  product_name: "B", scent_category: :woody, smoke_intensity: 4) }
+  let!(:r1) do
+    create(:incense_review, title: "Sweet wood", product_name: "A", scent_category: :sweet, smoke_intensity: 2)
+  end
+  let!(:r2) do
+    create(:incense_review, title: "Woody rose",  product_name: "B", scent_category: :woody, smoke_intensity: 4)
+  end
 
   describe ".with_keyword" do
     it "部分一致でヒット" do
