@@ -93,3 +93,6 @@ Instagramのように、ユーザーが気になるタグをフォローし、�
 - 利用規約：high_voltage
 - SNSログイン：omuiauth
 - 投稿時の該当商品の製品画面（外部サイト）へのリンク：nokogiri
+
+# CIバッジ
++[![CI](https://github.com/Ryuto-A/incense_app/actions/workflows/ci.yml/badge.svg)](https://github.com/Ryuto-A/incense_app/actions/workflows/ci.yml)

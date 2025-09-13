@@ -1,0 +1,48 @@
+# .rubocop.yml
+inherit_from:
+  - .rubocop_todo.yml
+
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+Layout/LineLength:
+  Max: 120
+  # Exclude:
+  #  - 'config/initializers/devise.rb' # コメント長の警告を回避する場合
+
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'  # RSpecはブロックが長くなりやすいため
+
+RSpec/ExampleLength:
+  Max: 12
+
+# Rails推奨だが、段階的に
+Rails/UnknownEnv:
+  Enabled: true
+inherit_from:
+  - .rubocop_todo.yml
+
+# 導入直後のため、現状について固定
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false  # ← RuboCopの提案メッセージを黙らせたい場合
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
