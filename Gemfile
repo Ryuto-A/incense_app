@@ -65,6 +65,9 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
+  # 開発でメールをブラウザ確認用
+  gem "letter_opener_web", "~> 2.0"
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -98,3 +101,5 @@ gem "active_storage_validations", "~> 1.2"
 #  Active Storage の S3 サービスを利用
 gem "aws-sdk-s3", "~> 1.149"
 
+# 日本語化用 internationalization
+gem "devise-i18n", "~> 1.11"

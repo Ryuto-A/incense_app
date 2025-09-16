@@ -1,0 +1,10 @@
+ja:
+  devise:
+    shared:
+      links:
+        sign_in: ログイン
+        sign_up: 新規登録
+        forgot_your_password: パスワードをお忘れですか？
+        didnt_receive_confirmation_instructions: 確認メールを受け取っていませんか？
+        didnt_receive_unlock_instructions: ロック解除メールを受け取っていませんか？
+        sign_in_with_provider: "%{provider} でログイン"

@@ -1,6 +1,10 @@
-# .rubocop.yml
 inherit_from:
   - .rubocop_todo.yml
+
+# 継承時に配列をマージ（Excludeが上書きされないように）
+inherit_mode:
+  merge:
+    - Exclude
 
 plugins:
   - rubocop-rails
@@ -9,36 +13,8 @@ plugins:
 
 AllCops:
   NewCops: enable
+  SuggestExtensions: false     # 提案メッセージ抑制（任意）
   TargetRubyVersion: 3.2
-  Exclude:
-    - 'bin/**/*'
-    - 'db/schema.rb'
-    - 'node_modules/**/*'
-    - 'vendor/**/*'
-
-Layout/LineLength:
-  Max: 120
-  # Exclude:
-  #  - 'config/initializers/devise.rb' # コメント長の警告を回避する場合
-
-
-Metrics/BlockLength:
-  Exclude:
-    - 'spec/**/*'  # RSpecはブロックが長くなりやすいため
-
-RSpec/ExampleLength:
-  Max: 12
-
-# Rails推奨だが、段階的に
-Rails/UnknownEnv:
-  Enabled: true
-inherit_from:
-  - .rubocop_todo.yml
-
-# 導入直後のため、現状について固定
-AllCops:
-  NewCops: enable
-  SuggestExtensions: false  # ← RuboCopの提案メッセージを黙らせたい場合
   Exclude:
     - 'bin/**/*'
     - 'db/schema.rb'
@@ -46,3 +22,19 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/**/*'
     - 'tmp/**/*'
+
+Layout/LineLength:
+  Max: 120
+  # Exclude:
+  #   - 'config/initializers/devise.rb'  # 例：長文コメント除外したい場合
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'   # RSpecは長くなりがち
+
+RSpec/ExampleLength:
+  Max: 12
+
+# 段階的に導入
+Rails/UnknownEnv:
+  Enabled: true

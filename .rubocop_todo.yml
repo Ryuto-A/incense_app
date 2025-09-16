@@ -87,13 +87,6 @@ Layout/IndentationWidth:
     - 'app/helpers/responsive_image_helper.rb'
     - 'app/models/tag.rb'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowHeredoc, AllowURI, AllowQualifiedName, URISchemes, IgnoreCopDirectives, AllowedPatterns, SplitStrings.
-# URISchemes: http, https
-Layout/LineLength:
-  Max: 154
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.

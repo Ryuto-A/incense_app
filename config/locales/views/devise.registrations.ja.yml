@@ -1,0 +1,19 @@
+ja:
+  devise:
+    registrations:
+      new:
+        title: 新規登録
+        sign_up: 登録する
+        min_password_length: "%{count}文字以上"
+      edit:
+        title: アカウント情報の編集
+        pending_reconfirmation: "現在、%{email} の確認待ちです"
+        password_optional_hint: 変更しない場合は空欄のままにしてください
+        min_password_length: "%{count}文字以上"
+        current_password_hint: 変更を確定するために現在のパスワードが必要です
+        update: 更新する
+        cancel_title: アカウントの削除
+        cancel_hint: 削除すると元に戻せません。
+        cancel_my_account: アカウントを削除する
+        cancel_confirm: 本当に削除しますか？
+        back: 戻る
