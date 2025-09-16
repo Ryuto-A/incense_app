@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   # 開発上でメールをブラウザ表示
-  if Rails.env.development?
+  if Rails.env.development? # rubocop:disable Style/IfUnlessModifier
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
 end

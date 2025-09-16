@@ -101,3 +101,5 @@ gem "active_storage_validations", "~> 1.2"
 #  Active Storage の S3 サービスを利用
 gem "aws-sdk-s3", "~> 1.149"
 
+# 日本語化用 internationalization
+gem "devise-i18n", "~> 1.11"

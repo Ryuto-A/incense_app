@@ -26,5 +26,8 @@ module IncenseApp
 
     # Active Storageを全環境でVipsに統一して設定
     config.active_storage.variant_processor = :vips
+
+    # 日本語化用 internationalization の日本語指定
+    config.i18n.default_locale = :ja
   end
 end
