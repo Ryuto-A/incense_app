@@ -18,7 +18,7 @@ module IncenseApp
     config.i18n.default_locale = :ja
     config.i18n.available_locales = %i[ja en]
     config.i18n.fallbacks        = [:en]
-    config.i18n.load_path       += Dir[Rails.root.join("config/locales/**/*.{rb,yml,yaml}")]
+    config.i18n.load_path       += Rails.root.glob("config/locales/**/*.{rb,yml,yaml}").map(&:to_s)
 
     # アプリのタイムゾーン（DBはUTCのままが一般的。必要なら下行を有効化）
     config.time_zone = "Tokyo"
