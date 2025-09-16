@@ -15,4 +15,9 @@ Rails.application.routes.draw do
   resources :incense_reviews do
     resources :comments, only: [:create, :destroy, :edit, :update]
   end
+
+  # 開発上でメールをブラウザ表示
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

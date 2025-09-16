@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
+
+  def after_resetting_password_path_for(_resource)
+    incense_reviews_path # 例: 任意のパスに変更
+  end
 end

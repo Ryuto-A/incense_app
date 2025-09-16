@@ -3,6 +3,8 @@
 Devise.setup do |config|
   # Mailer: メールFrom。後で本番はENVに寄せるのでデフォルトを置いておく
   config.mailer_sender = ENV.fetch("DEFAULT_FROM_EMAIL", "no-reply@incense-app.example")
+  # フィッシング耐性を少し上げるなら（存在しないメールでも同じレスにする）
+  config.paranoid = true
 
   # ORM
   require 'devise/orm/active_record'
