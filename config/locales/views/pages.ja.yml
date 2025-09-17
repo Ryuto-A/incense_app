@@ -1,0 +1,14 @@
+ja:
+  views:
+    pages:
+      terms:
+        title: 利用規約
+        heading: 利用規約
+        updated_at: "最終改定日: %{date}"
+      privacy:
+        title: プライバシーポリシー
+        heading: プライバシーポリシー
+        updated_at: "最終改定日: %{date}"
+      nav:
+        terms: 利用規約
+        privacy: プライバシーポリシー
