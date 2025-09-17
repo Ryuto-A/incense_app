@@ -1,0 +1,23 @@
+<% content_for :title, t('views.pages.privacy.title', locale: :ja) %>
+
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <%= link_to t('helpers.label.home', default: 'ホーム'), root_path %>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">
+      <%= t('views.pages.privacy.heading', locale: :ja) %>
+    </li>
+  </ol>
+</nav>
+
+<h1 class="h3 mb-3"><%= t('views.pages.privacy.heading', locale: :ja) %></h1>
+
+<p class="text-body lh-lg mb-4">
+  <%= t('views.pages.privacy.updated_at', locale: :ja, date: '2025-09-16') %>
+</p>
+
+<div class="text-body lh-lg">
+  <p>当サービスは、ユーザーの個人情報を適切に取り扱います。</p>
+  <p>（テンプレート）取得情報・利用目的・第三者提供・安全管理措置・お問い合わせ窓口等を記載します。</p>
+</div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IncenseApp</title>
+    <title><%= content_for?(:title) ? "#{yield(:title)} | " : "" %>IncenseApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -57,5 +57,22 @@
     <div class="container mt-4">
       <%= yield %>
     </div>
+
+    <footer class="border-top py-3 mt-5 small">
+      <div class="container d-flex flex-wrap gap-3 justify-content-between">
+        <div class="text-muted">&copy; <%= Time.current.year %> IncenseApp</div>
+        <nav class="ms-auto">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item">
+              <%= link_to t('views.pages.nav.terms', locale: :ja), terms_path, class: "link-secondary" %>
+            </li>
+            <li class="list-inline-item">|</li>
+            <li class="list-inline-item">
+              <%= link_to t('views.pages.nav.privacy', locale: :ja), privacy_path, class: "link-secondary" %>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
