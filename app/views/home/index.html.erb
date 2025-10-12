@@ -1,2 +1,40 @@
 <h1>Incense Review App</h1>
 <p>お香のレビューを共有しよう！</p>
+<section class="mb-5">
+  <div class="d-flex align-items-baseline justify-content-between">
+    <h2 class="h4 mb-3">おすすめ投稿（直近7日）</h2>
+    <%# 並び替え/期間切替は将来ここにUIを置く想定 %>
+  </div>
+
+  <% cache(["home/recommended/v1", @recommend_period.inspect, @recommend_cache_sig]) do %>
+    <% if @recommended_reviews.present? %>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3">
+        <% @recommended_reviews.each do |review| %>
+          <div class="col">
+            <div class="card h-100">
+              <div class="ratio ratio-4x3 card-img-top overflow-hidden">
+                <%= responsive_image(review,
+                      alt: "#{review.title} の画像",
+                      attachment_name: :photo,
+                      fallback_url: review.product_image,
+                      widths: [320, 640, 960],
+                      sizes: "100vw",
+                      class_name: "w-100 h-100 object-fit-cover") %>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= link_to review.title, review %></h5>
+                <p class="card-text small text-muted mb-0">
+                  お気に入り合計：<%= number_with_delimiter(review.favorites_count) %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="alert alert-light border" data-testid="recommended-empty">
+        今週のおすすめはまだありません。最近の投稿にお気に入りが付くと表示されます。
+      </div>
+    <% end %>
+  <% end %>
+</section>

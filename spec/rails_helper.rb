@@ -37,4 +37,7 @@ RSpec.configure do |config|
 
   # バックトレースのノイズを減らす
   config.filter_rails_from_backtrace!
+
+  # TimeHelpers をいつでも使える状態にする。（開発スピード/保守性アップ）
+  config.include ActiveSupport::Testing::TimeHelpers
 end
