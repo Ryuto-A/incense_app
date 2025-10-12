@@ -27,24 +27,25 @@ RSpec.describe "Favorites", type: :system do
       find('input[type="submit"]').click
     end
 
-    it "toggles from index" do
+    it "adds from index" do
       visit incense_reviews_path
-
       within %([id="favorite_button_review_#{review.id}"]) do
         # 追加
         find(%([data-testid="favorite-btn-#{review.id}"])).click
       end
-
       within %([id="favorite_button_review_#{review.id}"]) do
         expect(page).to have_css(%([data-state="on"]))
         expect(count_text).to eq("1")
       end
+    end
 
-      # 解除
+    it "removes from index" do
+      # 事前に追加
+      Favorite.create!(user: user, incense_review: review)
+      visit incense_reviews_path
       within %([id="favorite_button_review_#{review.id}"]) do
         find(%([data-testid="favorite-btn-#{review.id}"])).click
       end
-
       within %([id="favorite_button_review_#{review.id}"]) do
         expect(page).to have_css(%([data-state="off"]))
         expect(count_text).to eq("0")

@@ -20,7 +20,7 @@ class FavoritesController < ApplicationController
           }
         )
       end
-      format.html { redirect_back fallback_location: incense_review_path(@review), notice: t("favorites.create.ok") }
+      format.html { redirect_back fallback_location: incense_review_path(@review), notice: t(".ok") }
     end
   end
 
@@ -43,7 +43,7 @@ class FavoritesController < ApplicationController
           }
         )
       end
-      format.html { redirect_back fallback_location: incense_review_path(@review), notice: t("favorites.destroy.ok") }
+      format.html { redirect_back fallback_location: incense_review_path(@review), notice: t(".ok") }
     end
   end
 

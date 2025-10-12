@@ -31,11 +31,11 @@ RSpec.describe Favorite, type: :model do
   it "increments/decrements counter_cache" do
     expect(review.favorites_count).to eq(0)
     fav = nil
-    expect {
+    expect do
       fav = described_class.create!(user: user, incense_review: review)
-    }.to change { review.reload.favorites_count }.by(1)
-    expect {
+    end.to change { review.reload.favorites_count }.by(1)
+    expect do
       fav.destroy!
-    }.to change { review.reload.favorites_count }.by(-1)
+    end.to change { review.reload.favorites_count }.by(-1)
   end
 end
