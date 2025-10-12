@@ -10,7 +10,7 @@ class RecommendedReviewsQuery
 
     # 期間内の「レビューごとのお気に入り数」と「最新お気に入り日時」を集計
     sub = Favorite
-          .where("favorites.created_at >= ?", period_start)
+          .where(created_at: period_start..)
           .group(:review_id)
           .select("review_id, COUNT(*) AS recent_fav_count, MAX(favorites.created_at) AS last_fav_at")
 
