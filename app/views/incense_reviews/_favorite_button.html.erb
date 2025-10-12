@@ -1,0 +1,35 @@
+<%# locals: review:, favorited: (true/false), favorite_id: (Integer or nil) %>
+<%# N+1回避のためカウントは counter_cache を利用（review.favorites_count） %>
+<%= turbo_frame_tag "favorite_button_review_#{review.id}" do %>
+  <div class="d-flex align-items-center gap-2">
+    <% if favorited %>
+      <%= button_to(
+            favorite_path(favorite_id),
+            method: :delete,
+            class: "btn btn-sm btn-danger",
+            form: { data: { turbo: true } },
+            title: t("favorites.button.unfavorite"),
+            "aria-pressed": "true",
+            data: { state: "on", testid: "favorite-btn-#{review.id}" }
+          ) do %>
+        &#9829; <span class="ms-1"><%= t("favorites.button.added") %></span>
+      <% end %>
+    <% else %>
+      <%= button_to(
+            incense_review_favorites_path(review),
+            method: :post,
+            class: "btn btn-sm btn-outline-danger",
+            form: { data: { turbo: true } },
+            title: t("favorites.button.favorite"),
+            "aria-pressed": "false",
+            data: { state: "off", testid: "favorite-btn-#{review.id}" }
+          ) do %>
+        &#9825; <span class="ms-1"><%= t("favorites.button.add") %></span>
+      <% end %>
+    <% end %>
+
+    <span class="small text-muted" data-testid="favorite-count-<%= review.id %>">
+      <%= number_with_delimiter(review.favorites_count) %>
+    </span>
+  </div>
+<% end %>

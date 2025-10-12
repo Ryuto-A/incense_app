@@ -30,10 +30,19 @@ class IncenseReviewsController < ApplicationController
     end
   
     @incense_reviews = @incense_reviews.with_photo if has_photo
+
+    # N+1回避：ログイン時のみ「自分がお気に入り済みの review_id => favorite_id」のマップを事前計算
+    if user_signed_in?
+      ids = @incense_reviews.map(&:id) # そのままmapでOK（最小差分）。効率重視なら pluck(:id) でも可
+      @favorites_map = current_user.favorites.where(review_id: ids).pluck(:review_id, :id).to_h
+    end
   end
 
   def show
     @comments = @incense_review.comments.includes(:user)
+      if user_signed_in?
+        @my_fav_id = current_user.favorites.find_by(review_id: @incense_review.id)&.id
+      end
   end
 
   def new

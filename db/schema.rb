@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_12_022538) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_17_111237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_12_022538) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_favorites_on_review_id"
+    t.index ["user_id", "review_id"], name: "index_favorites_on_user_id_and_review_id", unique: true
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
   create_table "incense_reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title", null: false
@@ -63,6 +73,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_12_022538) do
     t.string "product_image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "favorites_count", default: 0, null: false
     t.index ["user_id"], name: "index_incense_reviews_on_user_id"
   end
 
@@ -106,6 +117,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_12_022538) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "incense_reviews"
   add_foreign_key "comments", "users"
+  add_foreign_key "favorites", "incense_reviews", column: "review_id"
+  add_foreign_key "favorites", "users"
   add_foreign_key "incense_reviews", "users"
   add_foreign_key "review_tags", "incense_reviews", column: "review_id"
   add_foreign_key "review_tags", "tags"
