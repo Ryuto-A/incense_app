@@ -1,0 +1,17 @@
+ja:
+  activerecord:
+    models:
+      favorite: お気に入り
+    attributes:
+      favorite:
+        review: レビュー
+  favorites:
+    button:
+      add: お気に入り
+      added: 登録済み
+      favorite: お気に入りに追加
+      unfavorite: お気に入りを解除
+    create:
+      ok: お気に入りに登録しました
+    destroy:
+      ok: お気に入りを解除しました
