@@ -105,6 +105,20 @@
         <p class="card-text"><strong>煙の強さ:</strong> <%= review.smoke_intensity %></p>
         <p class="card-text"><%= truncate(review.content, length: 100) %></p>
         <%= link_to "続きを読む", review, class: "btn btn-outline-primary" %>
+
+        <%# --- お気に入りボタン（N+1回避のため事前計算マップを使用） --- %>
+        <% if user_signed_in? %>
+          <% fav_id = (@favorites_map || {}).fetch(review.id, nil) %>
+          <%= render "incense_reviews/favorite_button",
+                      review: review,
+                      favorited: fav_id.present?,
+                      favorite_id: fav_id %>
+        <% else %>
+          <%= render "incense_reviews/favorite_button",
+                      review: review,
+                      favorited: false,
+                      favorite_id: nil %>
+        <% end %>
       </div>
     </div>
   <% end %>

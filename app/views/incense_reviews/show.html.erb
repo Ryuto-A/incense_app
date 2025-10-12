@@ -35,6 +35,20 @@
   </div>
 <% end %>
 
+<%# お気に入りボタン %>
+<% if user_signed_in? %>
+  <% my_fav_id = @my_fav_id %>
+  <%= render "incense_reviews/favorite_button",
+             review: @incense_review,
+             favorited: my_fav_id.present?,
+             favorite_id: my_fav_id %>
+<% else %>
+  <%= render "incense_reviews/favorite_button",
+             review: @incense_review,
+             favorited: false,
+             favorite_id: nil %>
+<% end %>
+
 <%= link_to "一覧に戻る", incense_reviews_path, class: "btn btn-light" %>
 
 <hr>

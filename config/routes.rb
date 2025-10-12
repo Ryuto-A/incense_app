@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :incense_reviews do
     resources :comments, only: [:create, :destroy, :edit, :update]
+    # お気に入り：作成はネスト、削除は shallow で /favorites/:id に DELETE
+    resources :favorites, only: [:create, :destroy], shallow: true
   end
 
   # 開発上でメールをブラウザ表示
