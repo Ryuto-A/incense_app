@@ -53,7 +53,16 @@
 
 <hr>
 
-<%= render 'comments/form' %>
+<% if user_signed_in? %>
+  <%= render 'comments/form' %>
+<% else %>
+  <div class="alert alert-light border small">
+    コメントするには
+    <%= link_to "ログイン",
+                new_user_session_path(redirect_to: request.fullpath) %>
+    してください。
+  </div>
+<% end %>
 
 <div class="row">
   <div class="col-lg-8 offset-lg-2">

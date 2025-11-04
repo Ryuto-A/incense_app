@@ -5,7 +5,8 @@
     <p><%= simple_format(comment.content) %></p>
   </td>
 
-  <% if current_user.own?(comment) %>
+  <% owner_view = user_signed_in? && current_user.own?(comment) %>
+  <% if owner_view %>
     <td class="action text-end">
       <ul class="list-inline justify-content-center" style="float: right;">
         <li class="list-inline-item">
@@ -17,12 +18,14 @@
         <li class="list-inline-item">
           <%= button_to incense_review_comment_path(comment.incense_review, comment),
               method: :delete,
-              class: "btn btn-sm btn-outline-danger" do %>
+              class: "btn btn-sm btn-outline-danger",
+               data: { confirm: "本当に削除しますか？" } do %>
             <i class="bi bi-trash-fill"></i> 削除
           <% end %>
         </li>
       </ul>
     </td>
+  <% else %>
+    <td class="action text-end"></td>
   <% end %>
 </tr>
-
