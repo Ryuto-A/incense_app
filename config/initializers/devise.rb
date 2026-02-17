@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
   # Mailer: メールFrom。後で本番はENVに寄せるのでデフォルトを置いておく
   config.mailer_sender = ENV.fetch("DEFAULT_FROM_EMAIL", "no-reply@incense-app.example")
@@ -51,3 +52,4 @@ Devise.setup do |config|
                   scope: "openid profile email",
                   prompt: "consent"
 end
+# rubocop:enable Metrics/BlockLength

@@ -12,7 +12,6 @@ class User < ApplicationRecord
 
   # 所有者を判定する
   def own?(object)
-    self.id == object.user_id
     id == object.user_id
   end
 
@@ -21,7 +20,7 @@ class User < ApplicationRecord
   def self.from_omniauth(auth, current_user = nil)
     provider = auth.provider
     uid      = auth.uid
-    info     = auth.info || OpenStruct.new
+    info     = auth.info || {}
 
     # すでに紐づけ済みなら即返す
     if (identity = Authentication.find_by(provider:, uid:))
@@ -39,27 +38,46 @@ class User < ApplicationRecord
 
   # ---- 以下ヘルパ（複雑度を分散）----
   def self.link_current_user!(current_user, provider, uid)
-   current_user.authentications.create!(provider:, uid:)
-   current_user
+    current_user.authentications.create!(provider:, uid:)
+    current_user
   end
-
   private_class_method :link_current_user!
 
+  # Hash/OmniAuth::AuthHashどちらでも安全に email を取る
   def self.find_user_by_info(info)
-    email = info.email.presence
-    email && User.find_by(email:)
+    email = fetch_info_value(info, :email)
+    return nil if email.blank?
+
+    User.find_by(email:)
   end
   private_class_method :find_user_by_info
 
+  # 取り出した email/name/nickname を実際に使う（Hashでも落ちない）
   def self.create_user_from_info!(info, provider, uid)
+    email    = fetch_info_value(info, :email)
+    name     = fetch_info_value(info, :name)
+    nickname = fetch_info_value(info, :nickname)
+
     User.create!(
-      email: info.email.presence || dummy_email(provider, uid),
+      email: email.presence || dummy_email(provider, uid),
       password: SecureRandom.hex(16),
-      name: info.name.presence || info.nickname.presence || "SNSユーザー"
+      name: name.presence || nickname.presence || "SNSユーザー"
     )
   end
-
   private_class_method :create_user_from_info!
+
+  # info が AuthHash でも Hash でも安全に値を取得して整形
+  def self.fetch_info_value(info, key)
+    value =
+      if info.respond_to?(key)
+        info.public_send(key)
+      else
+        info[key]
+      end
+
+    value.to_s.strip.presence
+  end
+  private_class_method :fetch_info_value
 
   def self.dummy_email(provider, uid)
     "tmp-#{provider}-#{uid}@example.invalid"
