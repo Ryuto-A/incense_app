@@ -90,7 +90,13 @@ end
 gem "bootstrap", "~> 5.3.0"
 gem "sassc-rails"
 
+# ユーザ登録, 認証系gem: google,github,line.
 gem 'devise'
+gem "omniauth"                      # OmniAuth本体（v2系）
+gem "omniauth-rails_csrf_protection" # Rails 7でのCSRF保護
+gem "omniauth-google-oauth2"
+gem "omniauth-github"
+gem "omniauth-line"
 
 # 画像変換用（Active Storageのvariantで必須）.vipsを用いてレスポンシブ対応
 gem "image_processing", "~> 1.12"

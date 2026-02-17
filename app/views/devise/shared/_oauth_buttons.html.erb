@@ -1,0 +1,11 @@
+<div class="d-grid gap-2 my-3">
+  <%= button_to user_github_omniauth_authorize_path,  method: :post, class: "btn btn-dark" do %>
+    GitHubでログイン
+  <% end %>
+  <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-danger" do %>
+    Googleでログイン
+  <% end %>
+  <%= button_to user_line_omniauth_authorize_path, method: :post, class: "btn btn-success" do %>
+    LINEでログイン
+  <% end %>
+</div>

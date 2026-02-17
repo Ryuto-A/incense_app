@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
   # Mailer: メールFrom。後で本番はENVに寄せるのでデフォルトを置いておく
   config.mailer_sender = ENV.fetch("DEFAULT_FROM_EMAIL", "no-reply@incense-app.example")
@@ -33,4 +34,22 @@ Devise.setup do |config|
   config.navigational_formats = ['*/*', :html, :turbo_stream]
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
+
+  # OmniAuth providers
+  OmniAuth.config.allowed_request_methods = %i[post] # 安全策（omniauth-rails_csrf_protection 併用）
+  config.omniauth :github,
+                  ENV.fetch("GITHUB_CLIENT_ID", nil),
+                  ENV.fetch("GITHUB_CLIENT_SECRET", nil),
+                  scope: "user:email"
+  config.omniauth :google_oauth2,
+                  ENV.fetch("GOOGLE_CLIENT_ID", nil),
+                  ENV.fetch("GOOGLE_CLIENT_SECRET", nil),
+                  scope: "email,profile"
+
+  config.omniauth :line,
+                  ENV.fetch("LINE_CHANNEL_ID", nil),
+                  ENV.fetch("LINE_CHANNEL_SECRET", nil),
+                  scope: "openid profile email",
+                  prompt: "consent"
 end
+# rubocop:enable Metrics/BlockLength
