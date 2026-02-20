@@ -49,3 +49,4 @@
 
 # VS Codeは共有しなくて良い
 .vscode/
+.env

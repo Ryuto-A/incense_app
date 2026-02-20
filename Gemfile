@@ -59,6 +59,8 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rubocop-performance", require: false
 
+  # ENVの恒久対応のために導入(Google_OAth2の認証でかなり手こずった).
+  gem "dotenv-rails"
 end
 
 group :development do
