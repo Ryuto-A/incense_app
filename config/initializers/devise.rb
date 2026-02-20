@@ -39,7 +39,7 @@ Devise.setup do |config|
   OmniAuth.config.allowed_request_methods = %i[post] # 安全策（omniauth-rails_csrf_protection 併用）
   # CI/test は dummyで起動
 
-  omniauth_key = ->(name) do
+  omniauth_key = lambda do |name|
     Rails.env.test? ? "dummy" : ENV.fetch(name)
   end
 
