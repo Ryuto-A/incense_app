@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/BlockLength
 Devise.setup do |config|
-  # Mailer: メールFrom。後で本番はENVに寄せるのでデフォルトを置いておく
+  # Mailer: メールフォーム。後で本番はENVに寄せるのでデフォルトを置いておく
   config.mailer_sender = ENV.fetch("DEFAULT_FROM_EMAIL", "no-reply@incense-app.example")
   # フィッシング耐性を少し上げるなら（存在しないメールでも同じレスにする）
   config.paranoid = true
@@ -37,20 +37,25 @@ Devise.setup do |config|
 
   # OmniAuth providers
   OmniAuth.config.allowed_request_methods = %i[post] # 安全策（omniauth-rails_csrf_protection 併用）
+  # CI/test は dummyで起動
+
+  omniauth_key = ->(name) do
+    Rails.env.test? ? "dummy" : ENV.fetch(name)
+  end
 
   config.omniauth :github,
-                  ENV.fetch("GITHUB_CLIENT_ID"),
-                  ENV.fetch("GITHUB_CLIENT_SECRET"),
+                  omniauth_key.call("GITHUB_CLIENT_ID"),
+                  omniauth_key.call("GITHUB_CLIENT_SECRET"),
                   scope: "user:email"
 
   config.omniauth :google_oauth2,
-                  ENV.fetch("GOOGLE_CLIENT_ID"),
-                  ENV.fetch("GOOGLE_CLIENT_SECRET"),
+                  omniauth_key.call("GOOGLE_CLIENT_ID"),
+                  omniauth_key.call("GOOGLE_CLIENT_SECRET"),
                   scope: "email,profile"
 
   config.omniauth :line,
-                  ENV.fetch("LINE_CHANNEL_ID"),
-                  ENV.fetch("LINE_CHANNEL_SECRET"),
+                  omniauth_key.call("LINE_CHANNEL_ID"),
+                  omniauth_key.call("LINE_CHANNEL_SECRET"),
                   scope: "openid profile email",
                   prompt: "consent"
 end

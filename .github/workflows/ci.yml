@@ -26,6 +26,14 @@ jobs:
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}  # GitHubのRAILS_MASTER_KEYを参照する
       CI: "true" # ← spec/support/capybara.rb のCI切り替え用
 
+      # ▼ 追加（devise.rb が ENV.fetch で要求するため）
+      GITHUB_CLIENT_ID: dummy
+      GITHUB_CLIENT_SECRET: dummy
+      GOOGLE_CLIENT_ID: dummy
+      GOOGLE_CLIENT_SECRET: dummy
+      LINE_CHANNEL_ID: dummy
+      LINE_CHANNEL_SECRET: dummy
+
     steps:
       - uses: actions/checkout@v4
 
