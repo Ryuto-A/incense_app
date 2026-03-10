@@ -53,10 +53,11 @@ Devise.setup do |config|
                   omniauth_key.call("GOOGLE_CLIENT_SECRET"),
                   scope: "email,profile"
 
+  # LINEはemailを取得しない
   config.omniauth :line,
                   omniauth_key.call("LINE_CHANNEL_ID"),
                   omniauth_key.call("LINE_CHANNEL_SECRET"),
-                  scope: "openid profile email",
+                  scope: "openid profile",
                   prompt: "consent"
 end
 # rubocop:enable Metrics/BlockLength
