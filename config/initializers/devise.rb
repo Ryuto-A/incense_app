@@ -59,6 +59,5 @@ Devise.setup do |config|
                   omniauth_key.call("LINE_CHANNEL_SECRET"),
                   scope: "openid profile",
                   prompt: "consent"
-
 end
 # rubocop:enable Metrics/BlockLength
