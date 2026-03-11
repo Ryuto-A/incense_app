@@ -23,5 +23,8 @@ module IncenseApp
     # アプリのタイムゾーン（DBはUTCのままが一般的。必要なら下行を有効化）
     config.time_zone = "Tokyo"
     # config.active_record.default_timezone = :local
+
+    # viewからENVを直接参照するように設定
+    config.x.contact_form_url = ENV["CONTACT_FORM_URL"]
   end
 end
