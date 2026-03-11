@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   if Rails.env.development? # rubocop:disable Style/IfUnlessModifier
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-  # 利用規約,プライバシーポリシーのページ設定
+  # 利用規約, プライバシーポリシー, お問い合わせ のページ設定
   get '/terms',   to: 'pages#terms',   as: :terms
   get '/privacy', to: 'pages#privacy', as: :privacy
+  get "/contact", to: "pages#contact", as: :contact
 end
