@@ -25,6 +25,6 @@ module IncenseApp
     # config.active_record.default_timezone = :local
 
     # viewからENVを直接参照するように設定
-    config.x.contact_form_url = ENV["CONTACT_FORM_URL"]
+    config.x.contact_form_url = ENV.fetch("CONTACT_FORM_URL", nil)
   end
 end
