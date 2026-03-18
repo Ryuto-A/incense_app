@@ -6,6 +6,20 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- OGP (static) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="IncenseApp">
+    <meta property="og:title" content="IncenseApp | お香レビュー投稿アプリ">
+    <meta property="og:description" content="お香のレビューや情報を共有できるアプリです。香りカテゴリ・煙の強さ・タグ検索にも対応。">
+    <meta property="og:image" content="<%= "#{request.base_url}/ogp.png" %>">
+    <meta property="og:url" content="<%= request.base_url %>">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IncenseApp | お香レビュー投稿アプリ">
+    <meta name="twitter:description" content="お香のレビューや情報を共有できるアプリです。香りカテゴリ・煙の強さ・タグ検索にも対応。">
+    <meta name="twitter:image" content="<%= "#{request.base_url}/ogp.png" %>">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
