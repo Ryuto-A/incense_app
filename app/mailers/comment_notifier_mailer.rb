@@ -5,9 +5,6 @@ class CommentNotifierMailer < ApplicationMailer
     @review_user = @review.user
     @comment_user = comment.user
 
-    mail(
-      to: @review_user.email,
-      subject: "【IncenseApp】あなたのレビューにコメントが付きました"
-    )
+    mail(to: @review_user.email)
   end
 end

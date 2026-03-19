@@ -43,7 +43,7 @@ RSpec.describe Comment, type: :model do
 
     it "別ユーザーのコメント作成時に通知メールがenqueueされる" do
       expect do
-        Comment.create!(
+        described_class.create!(
           user: comment_user,
           incense_review: review,
           content: "これはテストコメントです"
@@ -53,7 +53,7 @@ RSpec.describe Comment, type: :model do
 
     it "自分の投稿に自分でコメントした場合は通知メールがenqueueされない" do
       expect do
-        Comment.create!(
+        described_class.create!(
           user: review_user,
           incense_review: review,
           content: "自分でコメント"
