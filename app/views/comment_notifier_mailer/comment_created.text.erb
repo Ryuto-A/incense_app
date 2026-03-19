@@ -1,0 +1,18 @@
+<%= @review_user.name.presence || @review_user.email %> さん
+
+あなたのレビューにコメントが付きました。
+
+【レビュータイトル】
+<%= @review.title %>
+
+【コメントしたユーザー】
+<%= @comment_user.name.presence || @comment_user.email %>
+
+【コメント内容】
+<%= @comment.content %>
+
+【レビューを確認する】
+<%= incense_review_url(@review) %>
+
+--
+IncenseApp

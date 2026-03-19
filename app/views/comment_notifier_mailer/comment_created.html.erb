@@ -1,0 +1,25 @@
+<p><%= @review_user.name.presence || @review_user.email %> さん</p>
+
+<p>あなたのレビューにコメントが付きました。</p>
+
+<p>
+  <strong>【レビュータイトル】</strong><br>
+  <%= @review.title %>
+</p>
+
+<p>
+  <strong>【コメントしたユーザー】</strong><br>
+  <%= @comment_user.name.presence || @comment_user.email %>
+</p>
+
+<p>
+  <strong>【コメント内容】</strong><br>
+  <%= simple_format(h(@comment.content)) %>
+</p>
+
+<p>
+  <strong>【レビューを確認する】</strong><br>
+  <%= link_to "レビュー詳細を開く", incense_review_url(@review) %>
+</p>
+
+<p>--<br>IncenseApp</p>

@@ -96,4 +96,11 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # production 環境の設定を追記
+  # ★ 独自ドメインにしたあと、"APP_HOST"を差し替える.
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "incense-app-a9577d916698.herokuapp.com"),
+    protocol: "https"
+  }
 end
