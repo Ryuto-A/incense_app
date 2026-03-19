@@ -75,6 +75,26 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Action Mailerの設定　★ 独自ドメインにしたあと、"APP_HOST"を差し替える.
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "incense-app-a9577d916698.herokuapp.com"),
+    protocol: "https"
+  }
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+    address:              ENV.fetch("SMTP_ADDRESS", "smtp.sendgrid.net"),
+    port:                 ENV.fetch("SMTP_PORT", 587),
+    domain:               ENV.fetch("SMTP_DOMAIN", "incense-app-a9577d916698.herokuapp.com"),
+    user_name:            ENV["SMTP_USERNAME"],
+    password:             ENV["SMTP_PASSWORD"],
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -97,10 +117,4 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # production 環境の設定を追記
-  # ★ 独自ドメインにしたあと、"APP_HOST"を差し替える.
-  config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "incense-app-a9577d916698.herokuapp.com"),
-    protocol: "https"
-  }
 end
