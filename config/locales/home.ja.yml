@@ -3,3 +3,7 @@ ja:
     recommended:
       title: おすすめ投稿
       empty: 今週のおすすめはまだありません。最近の投稿にお気に入りが付くと表示されます。
+
+  comment_notifier_mailer:
+    comment_created:
+      subject: "【IncenseApp】あなたのレビューにコメントが付きました"
