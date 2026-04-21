@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   # トップページを home#index に設定
   root "home#index"
 
+  # 使い方ページのルーティング
+  get "usage", to: "pages#usage"
+
   resources :incense_reviews do
     resources :comments, only: [:create, :destroy, :edit, :update]
     # お気に入り：作成はネスト、削除は shallow で /favorites/:id に DELETE
