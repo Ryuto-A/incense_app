@@ -2,6 +2,8 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  app_host = ENV.fetch("APP_HOST", "incense-app-a9577d916698.herokuapp.com")
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -41,7 +43,6 @@ Rails.application.configure do
   config.active_storage.service = :amazon
   config.active_storage.variant_processor = :vips
 
-
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
@@ -78,7 +79,7 @@ Rails.application.configure do
 
   # Action Mailerの設定　★ 独自ドメインにしたあと、"APP_HOST"を差し替える.
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "incense-app-a9577d916698.herokuapp.com"),
+    host: app_host,
     protocol: "https"
   }
 
@@ -89,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_ADDRESS", "smtp.sendgrid.net"),
     port: ENV.fetch("SMTP_PORT", 587),
-    domain: ENV.fetch("SMTP_DOMAIN", "incense-app-a9577d916698.herokuapp.com"),
+    domain: ENV.fetch("SMTP_DOMAIN", app_host),
     user_name: ENV.fetch("SMTP_USERNAME", nil),
     password: ENV.fetch("SMTP_PASSWORD", nil),
     authentication: :plain,
