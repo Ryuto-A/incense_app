@@ -1,8 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">IncenseApp</a>
+    <%= link_to "IncenseApp", root_path, class: "navbar-brand" %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="ナビゲーションを開閉"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -10,36 +18,47 @@
       <ul class="navbar-nav ms-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <span class="nav-link">ようこそ, <%= current_user.name %> さん！</span>
+            <span class="nav-link">
+              ようこそ, <%= current_user.name %> さん！
+            </span>
           </li>
 
           <li class="nav-item">
-            <%= link_to "レビューを見る", incense_reviews_path, class: "nav-link" %>
+            <%= link_to "レビューを見る",
+                        incense_reviews_path,
+                        class: "nav-link" %>
           </li>
 
           <li class="nav-item">
-            <%= link_to "レビューを投稿", new_incense_review_path, class: "nav-link" %>
+            <%= link_to "レビューを投稿",
+                        new_incense_review_path,
+                        class: "nav-link" %>
           </li>
 
-
-        <li class="nav-item">
+          <li class="nav-item">
             <%= link_to "ログアウト",
-            destroy_user_session_path,
-            data: { turbo_method: :delete },
-            class: "nav-link" %>
-        </li>
+                        destroy_user_session_path,
+                        data: { turbo_method: :delete },
+                        class: "nav-link" %>
+          </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
+            <%= link_to "新規登録",
+                        new_user_registration_path,
+                        class: "nav-link" %>
           </li>
 
           <li class="nav-item">
-            <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
+            <%= link_to "ログイン",
+                        new_user_session_path,
+                        class: "nav-link" %>
           </li>
         <% end %>
 
         <li class="nav-item">
-          <%= link_to "お問い合わせ", contact_path, class: "nav-link" %>
+          <%= link_to "お問い合わせ",
+                      contact_path,
+                      class: "nav-link" %>
         </li>
       </ul>
     </div>
