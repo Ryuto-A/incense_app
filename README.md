@@ -182,3 +182,18 @@ Heroku にデプロイしています。
 - 検索機能の改善
 - UI / UX のブラッシュアップ
 - README の整理と画面キャプチャ追加
+
+## 独自ドメイン
+- https://www.kemurilog.com
+
+## ドメイン管理
+- お名前.com
+
+## ホスティング
+- Heroku
+
+## SSL
+- Heroku ACM / Let's Encrypt
+
+## 正規ホスト
+- www.kemurilog.com
